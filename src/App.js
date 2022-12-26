@@ -16,11 +16,6 @@ function App() {
         <Route path="*">
           <Error></Error>
         </Route>
-        {/* <Route path="/" element={<Dashboard />} />
-
-        <Route path="/login" element={<Login />} />
-
-        <Route path="*" element={<Error />} /> */}
       </Switch>
     </BrowserRouter>
   );
