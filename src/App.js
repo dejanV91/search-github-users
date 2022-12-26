@@ -1,18 +1,27 @@
 import Dashboard from "./pages/Dashboard";
-import ErrorPage from "./pages/ErrorPage";
-import LoginPage from "./pages/LoginPage";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Error from "./pages/Error";
+import Login from "./pages/Login";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <BrowserRouter basename="/">
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact={true}>
+          <Dashboard></Dashboard>
+        </Route>
+        <Route path="/login">
+          <Login></Login>
+        </Route>
+        <Route path="*">
+          <Error></Error>
+        </Route>
+        {/* <Route path="/" element={<Dashboard />} />
 
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<Login />} />
 
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+        <Route path="*" element={<Error />} /> */}
+      </Switch>
     </BrowserRouter>
   );
 }
