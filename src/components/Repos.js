@@ -5,28 +5,38 @@ import { Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
 const Repos = () => {
   const { repos } = React.useContext(GithubContext);
 
-  var language = repos.reduce((total, item) => {
-    const { language } = item;
+  const language = repos.reduce((total, item) => {
+    const { language, stargazers_count } = item;
+
     if (!language) return total;
     if (!total[language]) {
-      total[language] = { label: language, value: 1 };
+      total[language] = { label: language, value: 1, stars: stargazers_count };
     } else {
       total[language] = {
         ...total[language],
         value: total[language].value + 1,
+        stars: total[language].stars + stargazers_count,
       };
     }
     return total;
   }, {});
 
-  language = Object.values(language).sort((a, b) => {
+  const mostUsed = Object.values(language).sort((a, b) => {
     return a.value - b.value;
   });
+
+  const mostPopular = Object.values(language)
+    .map((item) => {
+      return { ...item, value: item.stars };
+    })
+    .sort((a, b) => a.value - b.value);
 
   return (
     <section className="section">
       <Wrapper className="section-center">
-        <Pie3D data={language}></Pie3D>
+        <Pie3D data={mostUsed}></Pie3D>
+        <div></div>
+        <Doughnut2D data={mostPopular}></Doughnut2D>
       </Wrapper>
     </section>
   );
@@ -43,7 +53,6 @@ const Wrapper = styled.div`
   @media (min-width: 1200px) {
     grid-template-columns: 2fr 3fr;
   }
-
   div {
     width: 100% !important;
   }
