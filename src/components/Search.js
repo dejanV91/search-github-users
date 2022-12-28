@@ -1,9 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
-import { MdSearch } from 'react-icons/md';
-import { GithubContext } from '../context/context';
+import React from "react";
+import styled from "styled-components";
+import { MdSearch } from "react-icons/md";
+import { GithubContext } from "../context/context";
 const Search = () => {
-  return <h2>search component</h2>;
+  return (
+    <section className="section">
+      <Wrapper className="section-center">
+        <form>
+          <div className="form-control">
+            <MdSearch />
+            <input type="text" placeholder="enter github user" />
+            <button type="submit">search</button>
+          </div>
+        </form>
+        <h3>{`requests: ${"58"} / ${"60"}`}</h3>
+      </Wrapper>
+    </section>
+  );
 };
 
 const Wrapper = styled.div`
