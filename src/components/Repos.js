@@ -25,19 +25,38 @@ const Repos = () => {
     return a.value - b.value;
   });
 
+  // most popular language
   const mostPopular = Object.values(language)
     .map((item) => {
       return { ...item, value: item.stars };
     })
     .sort((a, b) => a.value - b.value);
 
+  // stars , forks
+  let { stars, forks } = repos.reduce(
+    (total, item) => {
+      const { name, stargazers_count, forks_count } = item;
+      total.stars[stargazers_count] = { label: name, value: stargazers_count };
+      total.forks[forks_count] = { label: name, value: forks_count };
+      return total;
+    },
+    {
+      stars: {},
+      forks: {},
+    }
+  );
+
+  const mostPopularRepos = Object.values(stars).slice(-5).reverse();
+
+  const mostForkedRepos = Object.values(forks).slice(-5).reverse();
+
   return (
     <section className="section">
       <Wrapper className="section-center">
         <Pie3D data={mostUsed}></Pie3D>
-        <Column3D data={mostUsed}></Column3D>
+        <Column3D data={mostPopularRepos}></Column3D>
         <Doughnut2D data={mostPopular}></Doughnut2D>
-        <Bar3D data={mostPopular}></Bar3D>
+        <Bar3D data={mostForkedRepos}></Bar3D>
       </Wrapper>
     </section>
   );
