@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import mockUser from "./mockData.js/mockUser";
 import mockRepos from "./mockData.js/mockRepos";
 import mockFollowers from "./mockData.js/mockFollowers";
@@ -16,18 +16,29 @@ const GithubProvider = ({ children }) => {
   const [requests, setRequests] = useState(0);
   const [error, setError] = useState({ show: false, msg: "" });
 
+  const getGithubUsers = async (user) => {
+    const response = await axios(`${rootUrl}/users/${user}`).catch((err) =>
+      console.log(err)
+    );
+    if (response) {
+      toggleError();
+      setGithubUser(response.data);
+    } else {
+      toggleError(true, "there is no user with this username");
+    }
+  };
+
   const checkRequest = () => {
-    axios(`${rootUrl}/rate_limit`)
-      .then(({ data }) => {
-        let {
-          rate: { remaining },
-        } = data;
-        setRequests(remaining);
-        if (remaining === 0) {
-          toggleError(true, "sorry, you have exeeded your hourly rate limit!");
-        }
-      })
-      .catch((err) => console.log(err));
+    axios(`${rootUrl}/rate_limit`).then(({ data }) => {
+      let {
+        rate: { remaining },
+      } = data;
+      if (remaining === 0) {
+        toggleError(true, "sorry, you have exeeded your hourly rate limit!");
+      }
+
+      setRequests(remaining);
+    });
   };
 
   function toggleError(show = false, msg = "") {
@@ -35,10 +46,9 @@ const GithubProvider = ({ children }) => {
   }
 
   useEffect(checkRequest, []);
-
   return (
     <GithubContext.Provider
-      value={{ githubUser, repos, followers, requests, error }}
+      value={{ githubUser, repos, followers, requests, error, getGithubUsers }}
     >
       {children}
     </GithubContext.Provider>
