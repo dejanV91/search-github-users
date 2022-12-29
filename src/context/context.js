@@ -9,12 +9,32 @@ const rootUrl = "https://api.github.com";
 const GithubContext = React.createContext();
 
 const GithubProvider = ({ children }) => {
-  const [githubUsers, setGithubUsers] = useState(mockUser);
+  const [githubUser, setGithubUser] = useState(mockUser);
   const [repos, setRepos] = useState(mockRepos);
   const [followers, setFollowers] = useState(mockFollowers);
 
+  const [requests, setRequests] = useState(0);
+
+  const checkRequest = () => {
+    axios(`${rootUrl}/rate_limit`)
+      .then(({ data }) => {
+        console.log(data);
+        let {
+          rate: { remaining },
+        } = data;
+        console.log(remaining);
+        setRequests(remaining);
+        if (remaining === 0) {
+          // error
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => checkRequest());
+
   return (
-    <GithubContext.Provider value={{ githubUsers, repos, followers }}>
+    <GithubContext.Provider value={{ githubUser, repos, followers, requests }}>
       {children}
     </GithubContext.Provider>
   );
