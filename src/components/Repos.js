@@ -21,16 +21,19 @@ const Repos = () => {
     return total;
   }, {});
 
-  const mostUsed = Object.values(language).sort((a, b) => {
-    return a.value - b.value;
-  });
+  const mostUsed = Object.values(language)
+    .sort((a, b) => {
+      return a.value - b.value;
+    })
+    .slice(0, 5);
 
   // most popular language
   const mostPopular = Object.values(language)
     .map((item) => {
       return { ...item, value: item.stars };
     })
-    .sort((a, b) => a.value - b.value);
+    .sort((a, b) => a.value - b.value)
+    .slice(0, 5);
 
   // stars , forks
   let { stars, forks } = repos.reduce(
