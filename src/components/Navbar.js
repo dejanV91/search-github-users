@@ -7,7 +7,6 @@ const Navbar = () => {
     useAuth0();
 
   const isUser = isAuthenticated && user;
-  console.log("NAVBAR", isAuthenticated, user);
 
   return (
     <Wrapper>
