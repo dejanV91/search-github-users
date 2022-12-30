@@ -1,15 +1,15 @@
 import Dashboard from "./pages/Dashboard";
 import Error from "./pages/Error";
-import Login from "./pages/Login";
+import { Login, PrivateRoute } from "./pages";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact={true}>
+        <PrivateRoute path="/" exact={true}>
           <Dashboard></Dashboard>
-        </Route>
+        </PrivateRoute>
         <Route path="/login">
           <Login></Login>
         </Route>
