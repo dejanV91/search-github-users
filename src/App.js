@@ -1,12 +1,12 @@
 import Dashboard from "./pages/Dashboard";
 import Error from "./pages/Error";
 import { Login, PrivateRoute, AuthWrapper } from "./pages";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <AuthWrapper>
-      <BrowserRouter basename="/">
+      <HashRouter basename="/">
         <Switch>
           <PrivateRoute path="/" exact={true}>
             <Dashboard></Dashboard>
@@ -18,7 +18,7 @@ function App() {
             <Error></Error>
           </Route>
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     </AuthWrapper>
   );
 }
