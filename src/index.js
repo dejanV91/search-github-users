@@ -12,6 +12,7 @@ root.render(
       domain="dev-iz2udir2ctflxlgq.us.auth0.com"
       clientId="pSyVN0LMT1qeRGq5LUDxYTljxo0CXK4Z"
       redirectUri={window.location.origin}
+      cacheLocation="localstorage"
     >
       <GithubProvider>
         <App />
