@@ -8,8 +8,8 @@ function App() {
     <AuthWrapper>
       <HashRouter>
         <Switch>
-          <PrivateRoute path="/" exact={true}>
-            <Dashboard></Dashboard>
+          <PrivateRoute path="/">
+            <Dashboard />
           </PrivateRoute>
           <Route path="/login">
             <Login></Login>
