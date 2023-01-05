@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { GithubProvider } from "./context/context";
@@ -11,8 +11,7 @@ root.render(
     <Auth0Provider
       domain="dev-iz2udir2ctflxlgq.us.auth0.com"
       clientId="pSyVN0LMT1qeRGq5LUDxYTljxo0CXK4Z"
-      redirectUri="https://dejanV91.github.io/search-github-users/"
-      // redirectUri={window.location.origin}
+      redirectUri={`${window.location.origin}/search-github-users/`}
       cacheLocation="localstorage"
     >
       <GithubProvider>

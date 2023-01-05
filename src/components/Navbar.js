@@ -19,7 +19,10 @@ const Navbar = () => {
       {isUser ? (
         <button
           onClick={() => {
-            logout({ returnTo: `${window.location.origin}/login` });
+            console.log(window.location.origin);
+            logout({
+              returnTo: `${window.location.origin}/search-github-users/login`,
+            });
           }}
         >
           logout
