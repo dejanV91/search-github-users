@@ -14,6 +14,7 @@ root.render(
       redirectUri="https://dejanV91.github.io/search-github-users/"
       // redirectUri={window.location.origin}
       cacheLocation="localstorage"
+      returnTo="https://dejanV91.github.io/search-github-users/login"
     >
       <GithubProvider>
         <App />
