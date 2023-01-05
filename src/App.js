@@ -1,24 +1,23 @@
-import Dashboard from "./pages/Dashboard";
-import Error from "./pages/Error";
-import { Login, PrivateRoute, AuthWrapper } from "./pages";
-import { HashRouter, Switch, Route } from "react-router-dom";
+import { Dashboard, Error, Login, PrivateRoute, AuthWrapper } from "./pages";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <AuthWrapper>
-      <HashRouter>
-        <Switch>
-          <PrivateRoute path="/">
-            <Dashboard />
-          </PrivateRoute>
-          <Route path="/login">
-            <Login></Login>
-          </Route>
-          <Route path="*">
-            <Error></Error>
-          </Route>
-        </Switch>
-      </HashRouter>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PrivateRoute path="/">
+                <Dashboard />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </Router>
     </AuthWrapper>
   );
 }
